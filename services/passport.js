@@ -25,7 +25,8 @@ passport.deserializeUser((id, done)=>{
 passport.use( new GoogleStrategy({
   clientID: keys.googleClientID,
   clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback'
+  callbackURL: '/auth/google/callback',
+  proxy:true//trust the proxy
 }, (accessToken, refreshToken, profile, done) => {
   //getting user details here
   //creates new model instance of user
