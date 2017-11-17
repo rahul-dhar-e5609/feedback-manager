@@ -7,11 +7,7 @@
   "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "private": true,
-  "proxy":{
-    "/auth/google":{
-      "target":"http://localhost/5000"
-    }
-  },
+  
   "homepage": ".",
   "devDependencies": {
     "babel-core": "^6.25.0",

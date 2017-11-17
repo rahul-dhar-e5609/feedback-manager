@@ -23,8 +23,14 @@ module.exports = {
   },
   watch: true,
   devServer: {
+    proxy: {
+      '/auth/google': {
+        target: 'http://[::1]:6003',
+        secure:false
+      }
+    },
     contentBase: BUILD_DIR,
-    port: 9001,
+    port: 9005,
     compress: true,
     hot: true,
     open: true
