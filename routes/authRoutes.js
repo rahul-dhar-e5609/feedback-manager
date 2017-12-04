@@ -21,12 +21,22 @@ module.exports = (app) => {
     scope: ['profile', 'email']
   }));
 
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get(
+    '/auth/google/callback',
+     passport.authenticate('google'),
+     //where to send the req after the above middleware is done working
+     (req, res) => {
+       res.redirect("/");
+     }
+  );
+
+
 
   app.get('/api/logout', (req, res)=>{
     //.logout function added by passport to the req
     req.logout();
-    res.send(req.user);
+    //res.send(req.user);
+    res.redirect("/");
   });
 
   app.get('/api/current_user', (req, res)=>{
