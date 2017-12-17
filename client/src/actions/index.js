@@ -59,7 +59,7 @@ export const submitSurvey = (values, history) => {
   return function(dispatch){
     axios.post('/api/surveys', values)
     .then(res => {
-      history.push('/home/survey');
+      history.push('/home/dashboard');
       dispatch({type: FETCH_USER, payload: res.data})
     });
   }
