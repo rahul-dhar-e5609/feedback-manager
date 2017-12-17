@@ -18,24 +18,22 @@ module.exports = app => {
      * Mapping through the events and removing all those events
      * that dont have a surveyID or a choice in the pathname
      */
-    const events = _.map(req.body, ({email, url}) => {
-      const pathname = new URL (url).pathname;
-      const p = new Path('/api/surveys/:surveyID/:choice');
-      const match = p.test(pathname);
-      if(match){
-        return { 
-          email,
-          surveyID: match.surveyID,
-          choice: match.choice
-        };
-      }
-    });
 
-    //takes an array, removes undefined elements
-    const compactEvents = _.compact(events);
-
-    //fetch unique events based on email and surveyIDs
-    const uniqueEvents = _.uniqBy(compactEvents, 'email', 'surveyID');
+    const p = new Path('/api/surveys/:surveyID/:choice');
+    const events = _.chain(req.body)
+      .map(({email, url}) => {
+        const match = p.test(new URL (url).pathname);
+        if(match){
+          return { 
+            email,
+            surveyID: match.surveyID,
+            choice: match.choice
+          };
+        }
+      })
+      .compact()    //takes an array, removes undefined elements    
+      .uniqBy('email', 'surveyID')      //fetch unique events based on email and surveyIDs
+      .value();
 
     res.send({});
   });
