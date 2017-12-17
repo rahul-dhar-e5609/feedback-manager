@@ -1,8 +1,7 @@
 import {combineReducers} from 'redux';
 import authReducer from './authReducer';
-import redirectReducer from './redirectUrlReducer';
-
+import {reducer as reduxForm} from 'redux-form';
 export default combineReducers({
   auth: authReducer,
-  redirectUrl: redirectReducer
+  form: reduxForm
 });

@@ -11,6 +11,7 @@ import {setRedirectUrl} from '../../actions';
 import {connect} from 'react-redux';
 import Dashboard from '../../views/Dashboard';
 import Payments from '../../views/Payments/Payments.js';
+import Survey from '../../views/Survey/Survey.js';
 
 class Full extends PureComponent {
 
@@ -58,6 +59,12 @@ class Full extends PureComponent {
                       console.log("Returning payments GUI");
                       return (
                         React.createElement(Payments)
+                      );
+                  }}/>
+                  <Route exact path="/home/survey" render={ props => {
+                      console.log("Returning survey GUI");
+                      return (
+                        React.createElement(Survey)
                       );
                   }}/>
                   <Redirect to="/home/dashboard" from="/home"/>

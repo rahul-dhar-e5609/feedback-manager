@@ -10,14 +10,13 @@ import {createBrowserHistory} from 'history';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
-import PrivateRoute from '../PrivateRoute/PrivateRoute.js';
 import Full from '../../containers/Full/';
 import Login from '../../views/Login';
 import Register from '../../views/Register';
 
 /*
   modifying from functional component to class based component
-  we wish to fetch user the very seconf out app gets rendered
+  we wish to fetch user the very second out app gets rendered
   making class based so that we have access to life cycle method, which
   will be automatically called when the app gets rendered
 */

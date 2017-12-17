@@ -12,5 +12,12 @@ export default {
       badge: {
       }
     },
+    {
+      name: 'Survey',
+      url: '/home/survey',
+      icon: 'icon-chart',
+      badge: {
+      }
+    },
   ]
 };

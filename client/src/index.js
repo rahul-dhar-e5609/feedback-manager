@@ -14,6 +14,8 @@ import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import '../scss/style.scss'
 
+import axios from 'axios';
+window.axios = axios;
 //first param = reducers
 //second param =  initial state
 //third param = applyMiddleware
