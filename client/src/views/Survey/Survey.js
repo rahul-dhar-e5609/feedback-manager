@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Row, Col, Card, CardHeader, CardBlock, Button} from "reactstrap";
 
 import SurveyNew from '../../components/Surveys/SurveyNew.js';
+import SurveyList from '../../components/Surveys/SurveyList.js';
 
 class Survey extends Component {
 
@@ -27,6 +28,7 @@ class Survey extends Component {
     return (
         <div className="animated fadeIn">
             <SurveyNew />
+            <SurveyList/>
         </div>
     )
   }

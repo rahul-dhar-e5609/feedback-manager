@@ -1,6 +1,6 @@
 //use axios to make ajax requests
 import axios from 'axios';
-import  { FETCH_USER } from './types';
+import  { FETCH_USER, FETCH_SURVEYS } from './types';
 import {SET_REDIRECTION_URL} from './types';
 
 export const setRedirectUrl = (url) => {
@@ -61,6 +61,15 @@ export const submitSurvey = (values, history) => {
     .then(res => {
       history.push('/home/dashboard');
       dispatch({type: FETCH_USER, payload: res.data})
+    });
+  }
+}
+
+export const fetchSurveys = () => {
+  return function(dispatch){
+    axios.get('/api/surveys')
+    .then(res => {
+      dispatch({type: FETCH_SURVEYS, payload: res.data})
     });
   }
 }
