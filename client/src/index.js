@@ -1,29 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import {
+    BrowserRouter,
+    Route,
+    Redirect,
+    Switch
+} from 'react-router-dom';
+
+import FeedbackManager from 'containers/FeedbackManager/FeedbackManager.jsx';
+import Login from './views/Login/Login.jsx';
+
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
 
-import FeedbackManager from './components/FeedbackManager/FeedbackManager.js';
-// Styles
-// Import Font Awesome Icons Set
-import 'font-awesome/css/font-awesome.min.css';
-  // Import Simple Line Icons Set
-import 'simple-line-icons/css/simple-line-icons.css';
-// Import Main styles for this application
-import '../scss/style.scss'
+import './assets/css/bootstrap.min.css';
+import './assets/css/animate.min.css';
+import './assets/sass/light-bootstrap-dashboard.css';
+import './assets/css/demo.css';
+import './assets/css/pe-icon-7-stroke.css';
 
-import axios from 'axios';
-window.axios = axios;
-//first param = reducers
-//second param =  initial state
-//third param = applyMiddleware
-//
+
+
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 ReactDOM.render((
-  <Provider store={store}>
-    <FeedbackManager />
-  </Provider>
-), document.querySelector('#root'));
-console.log("Stripe key: " + REACT_APP_STRIPE_KEY);
+    <Provider store={store}>
+        <FeedbackManager/>
+    </Provider>    
+),document.getElementById('root'));
+console.log("STRIPE key is ", process.env.REACT_APP_STRIPE_KEY);
+console.log("Environment is ", process.env.NODE_ENV);
