@@ -31,6 +31,7 @@ passport.use( new GoogleStrategy({
   //this is the new es17 syntax for handling asuny
   //code, with functions that handles promises
   async (accessToken, refreshToken, profile, done) => {
+    console.log("Profile", profile);
     //getting user details here
     //creates new model instance of user
     //these are all asynchronous actions
@@ -43,7 +44,13 @@ passport.use( new GoogleStrategy({
       return done(null, existingUser);
     }
     //make a new record
-    const user = await new User({googleID: profile.id}).save();
+    const user = await new User({
+      googleID: profile.id,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      email: profile.emails[0].value,
+      avatar: profile.photos[0].value.split("?")[0] 
+    }).save();
     //user is another model instance
     //both represent the same model
     //this user is provided to us by the mongoose

@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import { fetchSurveys } from '../../actions';
+import {
+    Grid, Row, Col,
+    FormGroup, ControlLabel, FormControl
+} from 'react-bootstrap';
+import {Card} from 'components/Card/Card.jsx';
 
 class SurveyList extends Component {
 
@@ -12,28 +17,31 @@ class SurveyList extends Component {
     renderSurveys(){
         //console.log("Surveys", this.props.surveys);
         return this.props.surveys.reverse().map(survey => {
+            const numOfCols = 4;
+            const colWidth = 12 / numOfCols;
             return (
-                <div className="card darken-1" key={survey._id}>
-                    <div className="card-content">
-                        <span className="card-title">{survey.title}
-                            <p>{survey.body}</p>
-                            <p className="right">Sent On: {new Date(survey.dateSent).toLocaleDateString()}</p>
-                        </span>
-                    </div>
-                    <div className="card-action">
-                        <a>Yes: {survey.yes}</a>
-                        <a>No: {survey.no}</a>
-                    </div>
-                </div>
+                <Col md={colWidth} key={survey._id}>
+                    <Card
+                        title={survey.title}
+                        content={
+                            <div style={{height: '150px'}}>
+                                <p>{survey.body}</p>
+                                <p className="right">Sent On: {new Date(survey.dateSent).toLocaleDateString()}</p>
+                            </div>
+                        }
+                    />
+                </Col>
             );
         })
     }
 
     render () {
         return (
-            <div>
-                {this.renderSurveys()}
-            </div>
+            <Grid fluid>
+                <Row>
+                    {this.renderSurveys()}
+                </Row>
+            </Grid>
         );
     }
 }

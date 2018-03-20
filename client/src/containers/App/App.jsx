@@ -21,9 +21,13 @@ class App extends Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.is_authenticated = this.is_authenticated.bind(this);
+        this.sidebarMenuLinks = this.sidebarMenuLinks.bind(this);
         this.state = {
             _notificationSystem: null
         };
+    }
+    sidebarMenuLinks(){
+
     }
     handleNotificationClick(position){
         var color = Math.floor((Math.random() * 4) + 1);
@@ -124,10 +128,13 @@ class App extends Component {
                             <Header {...this.props}/>
                                 <Switch>
                                     {
-                                        appRoutes.map((prop,key) => {
+                                        appRoutes
+                                    //    .filter((prop) => prop.isSidebarMenuLink === true )
+                                        .map((prop,key) => {
                                             if(prop.name === "Notifications")
                                                 return (
                                                     <Route
+                                                        exact
                                                         path={prop.path}
                                                         key={key}
                                                         render={routeProps =>
@@ -142,7 +149,7 @@ class App extends Component {
                                                     <Redirect from={prop.path} to={prop.to} key={key}/>
                                                 );
                                             return (
-                                                <Route path={prop.path} component={prop.component} key={key}/>
+                                                <Route exact path={prop.path} component={prop.component} key={key}/>
                                             );
                                         })
                                     }
@@ -158,8 +165,8 @@ class App extends Component {
 }
 
 function mapStateToProps({auth}, ownProps) {
-    console.log("Auth", auth);
-    console.log("Own Props", ownProps);
+    //console.log("Auth", auth);
+    //console.log("Own Props", ownProps);
     return {
       auth,
       ...ownProps

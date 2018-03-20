@@ -42,7 +42,9 @@ class Sidebar extends Component{
                     <ul className="nav">
                         { this.state.width <= 991 ? (<HeaderLinks />):null }
                         {
-                            appRoutes.map((prop,key) => {
+                            appRoutes
+                            .filter((prop) => prop.isSidebarMenuLink === true )
+                            .map((prop,key) => {
                                 if(!prop.redirect)
                                     return (
                                         <li className={prop.upgrade ? "active active-pro":this.activeRoute(prop.path)} key={key}>

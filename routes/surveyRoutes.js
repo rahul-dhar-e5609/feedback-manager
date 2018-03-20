@@ -7,25 +7,28 @@ const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
-
+const SurveyConfig = require('../utils/Survey').FMSurvey;
+const HTTPCODES = require('../utils/Survey').HTTPCODES;
 
 module.exports = app => {
-
   app.get('/api/surveys', requireLogin, async (req, res) => {
-    const surveys = await Survey.find({ _user: req.user.id })
-      .select({ recipients: false });
-    res.send(surveys);
+    try{
+      const surveys = await SurveyConfig.getByUserID(req.user.id);
+      res.send(surveys);  
+    } catch(err){
+      res.status(HTTPCODES.UNPROCESSABLE_ENTITY).send(err);
+    }
   });
 
   app.get('/api/surveys/:surveyID/:choice', (req, res) => {
     res.send('Thanks for voting!');
   });
+
   app.post('/api/surveys/webhooks', (req, res) => {
     /**
      * Mapping through the events and removing all those events
      * that dont have a surveyID or a choice in the pathname
      */
-
     const p = new Path('/api/surveys/:surveyID/:choice');
     _.chain(req.body)
       .map(({email, url}) => {
@@ -85,7 +88,7 @@ module.exports = app => {
       res.send(user);
     }catch(err){
       //unprocessable entity
-      res.status(422).send(err);
+      res.status(HTTPCODES.UNPROCESSABLE_ENTITY).send(err);
     }
   });
 };

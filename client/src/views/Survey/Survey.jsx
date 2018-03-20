@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
-import SurveyNew from '../../components/Surveys/SurveyNew.js';
+import {Link} from 'react-router-dom';
+import {
+  Grid, Row, Col,
+  FormGroup, ControlLabel, FormControl
+} from 'react-bootstrap';
 import SurveyList from '../../components/Surveys/SurveyList.js';
+import Button from 'elements/CustomButton/CustomButton.jsx';
 
 class Survey extends Component {
 
@@ -14,20 +18,30 @@ class Survey extends Component {
        * todo
        * Here the customer should view his list of surveys
        * and a button which they can click for adding a new one
-       * 
-       * The list should have more of a widget based approach than a 
+       *
+       * The list should have more of a widget based approach than a
        * list based approach
-       * 
-       * Should have something like 
+       *
+       * Should have something like
        * <AddSurvey/>
-       * 
+       *
        * <SurveyList/>
        */
-    console.log("Rendering survey");
     return (
         <div className="animated fadeIn">
-            <SurveyNew />
-            <SurveyList/>
+            <Grid fluid>
+              <Row>
+                  <Col md={2}>
+                  
+                  <Link className="btn btn-primary" to="/home/survey/add">Add Survey</Link>
+                  </Col>
+              </Row>
+              <Row>
+                <Col md={11}>
+                  <SurveyList/>
+                </Col>
+              </Row>
+            </Grid>
         </div>
     )
   }

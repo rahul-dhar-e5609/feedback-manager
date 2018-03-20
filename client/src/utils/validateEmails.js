@@ -12,4 +12,4 @@ export default (emails) => {
         return `These emails are invalid: ${invalidEmails}`;
     }
     return;
-};
+}; 

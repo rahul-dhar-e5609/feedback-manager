@@ -9,6 +9,10 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   googleID: String,
+  firstName: String,
+  lastName: String,
+  email: String,
+  avatar: String,
   credits: { type: Number, default: 0 }
 });
 

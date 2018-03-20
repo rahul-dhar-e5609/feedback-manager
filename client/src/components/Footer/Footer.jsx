@@ -6,9 +6,8 @@ class Footer extends Component {
 		return (
             <footer className="footer">
                 <Grid>
-                    
-                    <p className="copyright pull-right">
-                        &copy; {(new Date()).getFullYear()} <a href="#">Created By Rahul Dhar</a> with love for a better web
+                    <p className="copyright">
+                        &copy; {(new Date()).getFullYear()} Created By <a href="#">Rahul Dhar</a>
                     </p>
                 </Grid>
             </footer>
