@@ -28,6 +28,9 @@ class Login extends Component {
                 //customStyle={{minWidth: '50%'}}
                   title="Login"
                   ctTableResponsive
+                  stats={
+                    <span>&copy; {(new Date()).getFullYear()} Created By <a href='https://github.com/IAmRDhar/'>Rahul Dhar</a></span>
+                  }
                   category="Sign in to your account"
                   content={
                     <div>
