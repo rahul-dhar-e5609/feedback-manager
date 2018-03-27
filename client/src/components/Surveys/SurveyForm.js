@@ -8,20 +8,33 @@ import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails.js';
 import formFields from './formFields';
+import Card from 'components/Card/Card.jsx';
+import {
+  Grid, Row, Col, Table
+} from 'react-bootstrap';
 
 class SurveyForm extends Component {
     renderFields (){
+        const fieldStyle = {
+            margin: 'auto',
+            textAlign: 'center'
+        }
         return _.map(formFields, ({ label, name }) => {
-            return <Field 
+            return <div style={fieldStyle}> 
+                <Field 
                     key={name}
                     component={SurveyField}
                     type="text"
                     label={label}
                     name={name}
                     />
+                </div>
         });
     }
-    render(){
+    render(){   
+        const SurveyButtons = {
+            margin: '2%'
+        };
         return(
             /**
              * had we added paranthesis after this.props.onSurveySubmit in handleSubmit
@@ -33,20 +46,33 @@ class SurveyForm extends Component {
              * to see the values submitted do this
              * {this.props.handleSubmit(values => console.log(values))}
              */
-        <div>
+        <div className="content">
             <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}
             >
-                {this.renderFields()}
-                <Link
-                    className="red btn-flat white-text"
-                    to="/home/dashboard">
-                    Cancel 
-                </Link>
-                <button
-                    className="teal btn-flat right white-text"
-                    type="submit">
-                    Next 
-                </button>
+                <div >
+                    <Grid fluid>
+                        <Row>
+                            <Col md={12}>
+                                <Card
+                                    title="Add Survey"
+                                    headerRight={
+                                        <Row>
+                                            <Col mdOffset={3}>
+                                                <button className="btn btn-success btn-fill" style={SurveyButtons} type="submit">Next </button>
+                                                <Link className="btn btn-danger btn-fill" style={SurveyButtons} to="/home/survey">Cancel</Link>
+                                            </Col>
+                                        </Row>
+                                    }
+                                    category="You can add a new survey here."
+                                    ctTableFullWidth ctTableResponsive
+                                    content={
+                                        this.renderFields()
+                                    }
+                                />
+                            </Col>
+                        </Row>
+                    </Grid>
+                </div>
             </form>
         </div>
         )

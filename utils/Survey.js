@@ -41,6 +41,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var FMEnum_1 = __importDefault(require("./FMEnum"));
 var Survey = mongoose.model('surveys');
+var Mailer = require('../services/Mailer');
+var surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 /**
  * This class is responsible for
  * handling the information regarding the
@@ -73,11 +75,52 @@ var FMSurvey = /** @class */ (function () {
                             return [2 /*return*/, reject];
                         }
                         return [4 /*yield*/, Survey.find({ _user: userID })
-                                .select({ recipients: false })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                                .select({
+                                recipients: false,
+                                body: false,
+                                yes: false,
+                                no: false,
+                                _user: false,
+                                lastResponded: false,
+                                __v: false,
+                                _id: false
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()]; // not including the recipients sub-document
                 }
             });
         });
+    };
+    FMSurvey.createSurvey = function (title, subject, body, recipients, userID, draft) {
+        if (draft === void 0) { draft = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            var survey, mailer;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        survey = new Survey({
+                            title: title,
+                            subject: subject,
+                            body: body,
+                            recipients: FMSurvey.parseRecipientStringToArray(recipients),
+                            _user: userID,
+                            dateSent: Date.now()
+                        });
+                        if (!!draft) return [3 /*break*/, 2];
+                        mailer = new Mailer(survey, surveyTemplate(survey));
+                        return [4 /*yield*/, mailer.send()];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [4 /*yield*/, survey.save()];
+                    case 3: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    FMSurvey.parseRecipientStringToArray = function (recipients) {
+        var receps = recipients.split(',').map(function (email) { return ({ email: email.trim() }); });
+        console.log('Recepients array: ', receps);
+        return receps;
     };
     return FMSurvey;
 }());

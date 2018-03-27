@@ -69,6 +69,7 @@ export const fetchSurveys = () => {
   return function(dispatch){
     axios.get('/api/surveys')
     .then(res => {
+      console.log("Response for fetching surveys", res);
       dispatch({type: FETCH_SURVEYS, payload: res.data})
     });
   }

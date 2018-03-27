@@ -1,7 +1,12 @@
 import mongoose = require('mongoose');
 import FMEnum from './FMEnum';
 const Survey = mongoose.model('surveys');
+const Mailer = require('../services/Mailer');
+const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
+type Recipients = {
+    email: string
+}
 /**
  * This class is responsible for
  * handling the information regarding the 
@@ -28,6 +33,37 @@ export class FMSurvey {
             return reject;
         }
         return await Survey.find({ _user: userID })
-            .select({ recipients: false }); // not including the recipients sub-document
+            .select({ 
+                recipients: false,
+                body: false,
+                yes: false,
+                no: false,
+                _user: false,
+                lastResponded: false,
+                __v: false,
+                _id: false
+            }); // not including the recipients sub-document
+    }
+
+    static async createSurvey(title: string, subject: string, body: string, recipients: string, userID: string, draft: boolean = false): Promise<any> {
+        const survey = new Survey({                                               
+            title,
+            subject,
+            body,
+            recipients: FMSurvey.parseRecipientStringToArray(recipients),
+            _user: userID,
+            dateSent: Date.now()
+        });
+        if(!draft){
+            const mailer = new Mailer(survey, surveyTemplate(survey));
+            await mailer.send();    
+        }
+        return await survey.save();
+    }
+
+    static parseRecipientStringToArray(recipients: string): Recipients[] {
+        const receps = recipients.split(',').map(email => ({ email: email.trim() }));
+        console.log('Recepients array: ', receps);
+        return receps;
     }
 }

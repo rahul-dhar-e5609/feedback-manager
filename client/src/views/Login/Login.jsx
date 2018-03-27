@@ -8,23 +8,24 @@ import logo from 'assets/img/logo.png';
 class Login extends Component {
   render() {
     const loginOuterCSS = {
-            height:'100%',
+          //  height:'100%',
             backgroundColor:'#eee',
-            width:'100%'
+          //  width:'100%'
     };
     const loginInnerCSS = {
       justifyContent: 'center',
       flexwrap: 'wrap',
-      marginTop: '12%',
+      marginTop: '0%',
       display:'flex'
     };
     return (
-      <div style={loginOuterCSS}>
+      <div className="content" style={loginOuterCSS}>
       <Grid>
             <Row  style={loginInnerCSS}>
-              <Col md={8} style={{display:'flex'}}>
+              <Col md={6}>
+                <img style={{width:'50%', display: 'block', margin: '0 auto'}} src={logo}/>
                 <Card
-                customStyle={{minWidth: '50%'}}
+                //customStyle={{minWidth: '50%'}}
                   title="Login"
                   ctTableResponsive
                   category="Sign in to your account"
@@ -70,6 +71,8 @@ class Login extends Component {
                     </div>
                   }
                 />
+                </Col>
+                <Col md={6} style={{display:'none'}}>
                 <Card customStyle={{backgroundColor:'#187DA0', color: '#fff'}}
                   ctTableResponsive
                   content={

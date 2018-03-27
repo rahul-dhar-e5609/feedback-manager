@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 class Payments extends Component {
   render() {
     return (
-      <div className="animated fadeIn">
+      <div className="content animated fadeIn">
         <Row>
           Credits:&nbsp; &nbsp;{this.props.auth.credits}
           <MakePayment/>

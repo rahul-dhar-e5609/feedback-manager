@@ -129,7 +129,6 @@ class App extends Component {
                                 <Switch>
                                     {
                                         appRoutes
-                                    //    .filter((prop) => prop.isSidebarMenuLink === true )
                                         .map((prop,key) => {
                                             if(prop.name === "Notifications")
                                                 return (
