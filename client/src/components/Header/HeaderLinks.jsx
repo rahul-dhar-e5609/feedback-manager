@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 class HeaderLinks extends Component {
     render() {
-
+        if(this.props.auth == undefined){
+            return (<div></div>);
+        }
         return (
             <div>
                 <Nav>

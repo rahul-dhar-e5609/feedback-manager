@@ -57,7 +57,7 @@ class Payments extends Component {
                         <tbody>
                           {
                             this.props.transactions.map((prop, key) => {
-                              console.log("Properties", prop);
+                              //console.log("Properties", prop);
                               return (
                                 <tr key={key}>{
                                   Object.keys(prop).map((key, index) => {
@@ -95,6 +95,7 @@ class Payments extends Component {
 }
 
 function mapStateToProps({ auth, transactions }, ownProps) {
+  console.log("Own Props [Payment]", ownProps);
   return {
     auth,
     transactions

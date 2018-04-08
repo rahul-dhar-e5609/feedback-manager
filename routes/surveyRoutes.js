@@ -23,6 +23,12 @@ module.exports = app => {
   app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
     try {
+      /**
+       * TODO:
+       * Survey record should also save the amount
+       * of credits that were utilised in sending the 
+       * survey.
+       */
       const surveys = await SurveyConfig.createSurvey(title, subject, body, recipients, req.user.id);
       req.user.credits -= 1 * SurveyConfig.parseRecipientStringToArray(recipients).length;
       console.log("Deducted to: ", req.user.credits);

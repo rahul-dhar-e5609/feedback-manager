@@ -29,7 +29,7 @@ class App extends Component {
     sidebarMenuLinks(){
 
     }
-    handleNotificationClick(position){
+    handleNotificationClick(position, message, err){
         var color = Math.floor((Math.random() * 4) + 1);
         var level;
         switch (color) {
@@ -65,6 +65,7 @@ class App extends Component {
         var _notificationSystem = this.refs.notificationSystem;
         var color = Math.floor((Math.random() * 4) + 1);
         var level;
+        console.log("Level: ", _notificationSystem);
         switch (color) {
             case 1:
                 level = 'success';
@@ -148,7 +149,7 @@ class App extends Component {
                                                     <Redirect from={prop.path} to={prop.to} key={key}/>
                                                 );
                                             return (
-                                                <Route exact path={prop.path} component={prop.component} key={key}/>
+                                                <Route exact path={prop.path} handleNotification={this.handleNotificationClick} component={prop.component} key={key}/>
                                             );
                                         })
                                     }
