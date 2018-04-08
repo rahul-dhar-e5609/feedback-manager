@@ -5,11 +5,15 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 class MakePayment extends Component{
   render() {
+    const PaymentButtons = {
+      margin: '2%',
+      right: '2%'
+    };
     //gives actual javascript code
     //debugger;
     return (
       <StripeCheckout
-        name="Feedback Manager"
+        name="Add Credits!"
         description="$1.00 for 10 email credits "
         amount={100}
         token={
@@ -18,7 +22,7 @@ class MakePayment extends Component{
         }
         stripeKey = {process.env.REACT_APP_STRIPE_KEY}
       >
-        <Button color="primary"><i className="fa fa-money"></i>{'\u00A0'} Add Credits</Button>
+        <Button style={PaymentButtons} className="btn btn-success btn-fill btn-round"><i className="fa fa-money"></i>{'\u00A0'} Add Credits</Button>
       </StripeCheckout>
     );
   }

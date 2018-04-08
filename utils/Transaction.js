@@ -39,29 +39,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
+var Transaction = mongoose.model('transactions');
 var FMEnum_1 = __importDefault(require("./FMEnum"));
-var Survey = mongoose.model('surveys');
-var Mailer = require('../services/Mailer');
-var surveyTemplate = require('../services/emailTemplates/surveyTemplate');
-/**
- * This class is responsible for
- * handling the information regarding the
- * surveys
- *
- * Version 1.0.0
- * author: Rahul Dhar
- */
-var FMSurvey = /** @class */ (function () {
-    function FMSurvey() {
+var FMTransaction = /** @class */ (function () {
+    function FMTransaction() {
     }
-    /**
-     * This function is responsible for fetching
-     * all the surveys of a particular user
-     *
-     * Version 1.0.0
-     * @param userID | User ID of the owner
-     */
-    FMSurvey.getByUserID = function (userID) {
+    FMTransaction.add = function (amount, userID, email, credits) {
+        return __awaiter(this, void 0, void 0, function () {
+            var reject, transaction;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (userID.trim() == FMEnum_1.default.EMPTY_STRING || typeof userID != 'string') {
+                            reject = new Promise(function (resolve, reject) {
+                                reject(new Error('Invalid User ID format!'));
+                            });
+                            return [2 /*return*/, reject];
+                        }
+                        transaction = new Transaction({
+                            amount: amount,
+                            credits: credits,
+                            email: email,
+                            _user: userID,
+                            creditedOn: Date.now()
+                        });
+                        return [4 /*yield*/, transaction.save()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    FMTransaction.getByUserID = function (userID) {
         return __awaiter(this, void 0, void 0, function () {
             var reject;
             return __generator(this, function (_a) {
@@ -74,15 +82,10 @@ var FMSurvey = /** @class */ (function () {
                             });
                             return [2 /*return*/, reject];
                         }
-                        return [4 /*yield*/, Survey.find({ _user: userID })
+                        return [4 /*yield*/, Transaction.find({ _user: userID })
                                 .select({
-                                recipients: false,
-                                body: false,
-                                yes: false,
-                                no: false,
-                                _user: false,
-                                lastResponded: false,
                                 __v: false,
+                                _user: false,
                                 _id: false
                             })];
                     case 1: return [2 /*return*/, _a.sent()]; // not including the recipients sub-document
@@ -90,38 +93,6 @@ var FMSurvey = /** @class */ (function () {
             });
         });
     };
-    FMSurvey.createSurvey = function (title, subject, body, recipients, userID, draft) {
-        if (draft === void 0) { draft = false; }
-        return __awaiter(this, void 0, void 0, function () {
-            var survey, mailer;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        survey = new Survey({
-                            title: title,
-                            subject: subject,
-                            body: body,
-                            recipients: FMSurvey.parseRecipientStringToArray(recipients),
-                            _user: userID,
-                            dateSent: Date.now()
-                        });
-                        if (!!draft) return [3 /*break*/, 2];
-                        mailer = new Mailer(survey, surveyTemplate(survey));
-                        return [4 /*yield*/, mailer.send()];
-                    case 1:
-                        _a.sent();
-                        _a.label = 2;
-                    case 2: return [4 /*yield*/, survey.save()];
-                    case 3: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    FMSurvey.parseRecipientStringToArray = function (recipients) {
-        var receps = recipients.split(',').map(function (email) { return ({ email: email.trim() }); });
-        console.log('Recepients array: ', receps);
-        return receps;
-    };
-    return FMSurvey;
+    return FMTransaction;
 }());
-exports.FMSurvey = FMSurvey;
+exports.FMTransaction = FMTransaction;
