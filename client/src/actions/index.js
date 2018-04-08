@@ -1,7 +1,7 @@
 //use axios to make ajax requests
 import axios from 'axios';
-import  { FETCH_USER, FETCH_SURVEYS, FETCH_TRANSACTIONS } from './types';
-import {SET_REDIRECTION_URL} from './types';
+import { FETCH_USER, FETCH_SURVEYS, FETCH_TRANSACTIONS } from './types';
+import { SET_REDIRECTION_URL } from './types';
 
 export const setRedirectUrl = (url) => {
   const action = {
@@ -17,9 +17,9 @@ we have modified this flow such that we are now able to dispatch the action to o
 which is definitely when the get req as been completed
 */
 export const fetchUser = () => {
-  return function(dispatch){
+  return function (dispatch) {
     axios.get('/api/current_user')
-    .then(res => dispatch({type: FETCH_USER, payload: res.data}));
+      .then(res => dispatch({ type: FETCH_USER, payload: res.data }));
   }
 }
 //anonymous arrow function automatically returns the function or expression as there is no other code
@@ -49,39 +49,48 @@ export const fetchUser = () => async dispatch => {
 */
 
 export const handleToken = (token) => {
-  return function(dispatch){
+  return function (dispatch) {
     axios.post('/api/stripe', token)
-    .then(res => dispatch({type: FETCH_USER, payload: res.data}));
+      .then(res => {
+        return dispatch({ type: FETCH_USER, payload: res.data });
+      })
+      .then(() => {
+        dispatchTransactions(dispatch);
+      });
   }
 }
 
 export const submitSurvey = (values, history) => {
-  return function(dispatch){
+  return function (dispatch) {
     axios.post('/api/surveys', values)
-    .then(res => {
-      history.push('/home/dashboard');
-      dispatch({type: FETCH_USER, payload: res.data})
-    });
+      .then(res => {
+        history.push('/home/survey');
+        dispatch({ type: FETCH_USER, payload: res.data })
+      });
   }
 }
 
 export const fetchSurveys = () => {
-  return function(dispatch){
+  return function (dispatch) {
     axios.get('/api/surveys')
-    .then(res => {
-      console.log("Response for fetching surveys", res);
-      dispatch({type: FETCH_SURVEYS, payload: res.data})
-    });
+      .then(res => {
+        console.log("Response for fetching surveys", res);
+        dispatch({ type: FETCH_SURVEYS, payload: res.data })
+      });
   }
 }
 
 
 export const fetchTransactions = () => {
-  return function(dispatch){
-    axios.get('/api/transactions')
+  return function (dispatch) {
+    dispatchTransactions(dispatch);
+  }
+}
+
+const dispatchTransactions = (dispatch) => {
+  axios.get('/api/transactions')
     .then(res => {
       console.log("Response for fetching transactionss", res);
-      dispatch({type: FETCH_TRANSACTIONS, payload: res.data})
+      dispatch({ type: FETCH_TRANSACTIONS, payload: res.data })
     });
-  }
 }

@@ -20,8 +20,8 @@ class Payments extends Component {
     const th = {
       'Email': '',
       'Date': '',
-      'Amount': '',
-      'Credits':''
+      'Credits':'',
+      'Amount': ''
     }
     return (
       <div className="content">
@@ -33,7 +33,7 @@ class Payments extends Component {
                 headerRight={
                   <Row>
                     <Col mdOffset={1}>
-                      Avaliable Credits:&nbsp; &nbsp;{this.props.auth.credits}&nbsp; &nbsp;{this.props.transactions.length}
+                      Avaliable Credits:&nbsp; &nbsp;{this.props.auth.credits}
                       <MakePayment />
                     </Col>
                   </Row>
