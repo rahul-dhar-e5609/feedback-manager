@@ -59,7 +59,7 @@ class Survey extends Component {
                                               </thead>
                                               <tbody>
                                                   {
-                                                      this.props.surveys.reverse().map((prop, key) => {
+                                                      this.props.surveys.map((prop, key) => {
                                                         console.log("Properties", prop);
                                                           return (
                                                               <tr key={key}>{

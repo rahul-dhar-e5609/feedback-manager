@@ -57,7 +57,7 @@ class Payments extends Component {
                         </thead>
                         <tbody>
                           {
-                            this.props.transactions.reverse().map((prop, key) => {
+                            this.props.transactions.map((prop, key) => {
                               console.log("Properties", prop);
                               return (
                                 <tr key={key}>{

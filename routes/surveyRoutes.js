@@ -14,7 +14,7 @@ module.exports = app => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
     try {
       const surveys = await SurveyConfig.getByUserID(req.user.id);
-      res.send(surveys);
+      res.send(surveys.reverse());
     } catch (err) {
       res.status(HTTPCODES.UNPROCESSABLE_ENTITY).send(err);
     }

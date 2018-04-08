@@ -25,7 +25,7 @@ module.exports = app => {
   app.get('/api/transactions', requireLogin, async (req, res) => {
     try {
       const transactions = await Transaction.getByUserID(req.user.id);
-      res.send(transactions);
+      res.send(transactions.reverse());
     } catch (err) {
       res.status(HTTPCODES.UNPROCESSABLE_ENTITY).send(err);
     }

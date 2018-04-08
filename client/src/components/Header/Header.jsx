@@ -4,19 +4,20 @@ import { Navbar } from 'react-bootstrap';
 import HeaderLinks from './HeaderLinks.jsx';
 
 import appRoutes from 'routes/app.jsx';
+import { connect } from 'react-redux';
 
-class Header extends Component{
-    constructor(props){
+class Header extends Component {
+    constructor(props) {
         super(props);
         this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
         this.state = {
             sidebarExists: false
         };
     }
-    mobileSidebarToggle(e){
-        if(this.state.sidebarExists === false){
+    mobileSidebarToggle(e) {
+        if (this.state.sidebarExists === false) {
             this.setState({
-                sidebarExists : true
+                sidebarExists: true
             });
 
         }
@@ -24,29 +25,29 @@ class Header extends Component{
         document.documentElement.classList.toggle('nav-open');
         var node = document.createElement('div');
         node.id = 'bodyClick';
-        node.onclick = function(){
+        node.onclick = function () {
             this.parentElement.removeChild(this);
             document.documentElement.classList.toggle('nav-open');
         };
         document.body.appendChild(node);
     }
-    getBrand(){
+    getBrand() {
         var name;
-        appRoutes.map((prop,key) => {
-            if(prop.collapse){
-                 prop.views.map((prop,key) => {
-                    if(prop.path === this.props.location.pathname){
+        appRoutes.map((prop, key) => {
+            if (prop.collapse) {
+                prop.views.map((prop, key) => {
+                    if (prop.path === this.props.location.pathname) {
                         name = prop.name;
                     }
                     return null;
                 })
             } else {
-                if(prop.redirect){
-                    if(prop.path === this.props.location.pathname){
+                if (prop.redirect) {
+                    if (prop.path === this.props.location.pathname) {
                         name = prop.name;
                     }
-                }else{
-                    if(prop.path === this.props.location.pathname){
+                } else {
+                    if (prop.path === this.props.location.pathname) {
                         name = prop.name;
                     }
                 }
@@ -55,22 +56,27 @@ class Header extends Component{
         })
         return name;
     }
-    render(){
+    render() {
         return (
             <Navbar fluid>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <a href="#pablo">{this.getBrand()}</a>
                     </Navbar.Brand>
-                    <Navbar.Toggle onClick={this.mobileSidebarToggle}/>
+                    <Navbar.Toggle onClick={this.mobileSidebarToggle} />
                 </Navbar.Header>
-                <Navbar.Collapse style={{display:'flex'}}>
-                    <HeaderLinks />
+                <Navbar.Collapse >
+                    <HeaderLinks auth={this.props.auth} />
                 </Navbar.Collapse>
-                
+
             </Navbar>
         );
     }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+    return {
+        auth
+    }
+}
+export default connect(mapStateToProps)(Header);
