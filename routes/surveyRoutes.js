@@ -24,7 +24,8 @@ module.exports = app => {
     const { title, subject, body, recipients } = req.body;
     try {
       const surveys = await SurveyConfig.createSurvey(title, subject, body, recipients, req.user.id);
-      req.user.credits -= 1;
+      req.user.credits -= 1 * SurveyConfig.parseRecipientStringToArray(recipients).length;
+      console.log("Deducted to: ", req.user.credits);
       const user = await req.user.save();
       res.send(user);
     } catch (err) {

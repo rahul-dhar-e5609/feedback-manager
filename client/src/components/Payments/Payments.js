@@ -22,7 +22,7 @@ class MakePayment extends Component{
         }
         stripeKey = {process.env.REACT_APP_STRIPE_KEY}
       >
-        <Button style={PaymentButtons} className="btn btn-success btn-fill btn-round"><i className="fa fa-money"></i>{'\u00A0'} Add Credits</Button>
+        <Button style={PaymentButtons} className="btn btn-success btn-fill"><i className="fa fa-money"></i>{'\u00A0'} Add Credits</Button>
       </StripeCheckout>
     );
   }

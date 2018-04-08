@@ -32,8 +32,7 @@ class Payments extends Component {
                 title="Payment Transactions"
                 headerRight={
                   <Row>
-                    <Col mdOffset={1}>
-                      Avaliable Credits:&nbsp; &nbsp;{this.props.auth.credits}
+                    <Col mdOffset={3}>
                       <MakePayment />
                     </Col>
                   </Row>
