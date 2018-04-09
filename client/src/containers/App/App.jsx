@@ -4,7 +4,6 @@ import {
     Switch,
     Redirect
 } from 'react-router-dom';
-import NotificationSystem from 'react-notification-system';
 import {connect} from 'react-redux';
 
 import Header from 'components/Header/Header';
@@ -16,85 +15,7 @@ import {style} from "variables/Variables.jsx";
 import appRoutes from 'routes/app.jsx';
 
 class App extends Component {
-    constructor(props){
-        super(props);
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleNotificationClick = this.handleNotificationClick.bind(this);
-        this.is_authenticated = this.is_authenticated.bind(this);
-        this.sidebarMenuLinks = this.sidebarMenuLinks.bind(this);
-        this.state = {
-            _notificationSystem: null
-        };
-    }
-    sidebarMenuLinks(){
-
-    }
-    handleNotificationClick(position, message, err){
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
-        this.state._notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
-            message: (
-                <div>
-                    Welcome to <b>Feedback Manager</b> - a way of getting feedback from your customers.
-                </div>
-            ),
-            level: level,
-            position: position,
-            autoDismiss: 15,
-        });
-    }
-    componentDidMount(){
-        this.setState({_notificationSystem: this.refs.notificationSystem});
-        var _notificationSystem = this.refs.notificationSystem;
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        console.log("Level: ", _notificationSystem);
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
-        if(_notificationSystem)
-        _notificationSystem.addNotification({
-            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
-            message: (
-                <div>
-                    Welcome to <b>Feedback Manager</b> - a way of getting feedback from your customers.
-                </div>
-            ),
-            level: level,
-            position: "tr",
-            autoDismiss: 15,
-        });
-    }
+    
     componentDidUpdate(e){
         if(window.innerWidth < 993 && e.history.location.pathname !== e.location.pathname && document.documentElement.className.indexOf('nav-open') !== -1){
             document.documentElement.classList.toggle('nav-open');
@@ -111,7 +32,7 @@ class App extends Component {
         }
       }
     render() {
-        console.log("Props", this.props);
+        //console.log("Props [App]", this.props);
         const auth = this.is_authenticated();
         if( auth != null){
             if(auth == false){
@@ -123,7 +44,6 @@ class App extends Component {
             }else if (auth == true){
                 return (
                     <div className="wrapper">
-                        <NotificationSystem ref="notificationSystem" style={style}/>
                         <Sidebar {...this.props} />
                         <div id="main-panel" className="main-panel">
                             <Header {...this.props}/>
@@ -140,7 +60,7 @@ class App extends Component {
                                                         render={routeProps =>
                                                             <prop.component
                                                                 {...routeProps}
-                                                                handleClick={this.handleNotificationClick}
+                                                                handleClick={this.props.handleNotifications}
                                                             />}
                                                     />
                                                 );
@@ -149,7 +69,14 @@ class App extends Component {
                                                     <Redirect from={prop.path} to={prop.to} key={key}/>
                                                 );
                                             return (
-                                                <Route exact path={prop.path} handleNotification={this.handleNotificationClick} component={prop.component} key={key}/>
+                                                <Route exact path={prop.path}
+                                                render = { routeProps => 
+                                                    <prop.component 
+                                                      {...routeProps}
+                                                      handleNotifications={this.props.handleNotifications}
+                                                    />
+                                                  }
+                                                key={key}/>
                                             );
                                         })
                                     }
@@ -166,7 +93,7 @@ class App extends Component {
 
 function mapStateToProps({auth}, ownProps) {
     //console.log("Auth", auth);
-    //console.log("Own Props", ownProps);
+    //console.log("Own Props [App] ", ownProps);
     return {
       auth,
       ...ownProps

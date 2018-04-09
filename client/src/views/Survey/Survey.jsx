@@ -25,7 +25,6 @@ class Survey extends Component {
         'Date': ''
       }
       
-      console.log("Survey Props", this.props);
       return (
           <div className="content">
               <Grid fluid>
@@ -60,7 +59,6 @@ class Survey extends Component {
                                               <tbody>
                                                   {
                                                       this.props.surveys.map((prop, key) => {
-                                                        console.log("Properties", prop);
                                                           return (
                                                               <tr key={key}>{
                                                                   Object.keys(prop).map((key, index) => {

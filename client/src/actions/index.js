@@ -48,24 +48,26 @@ export const fetchUser = () => async dispatch => {
 };
 */
 
-export const handleToken = (token) => {
+export const handleToken = (token, onSuccess) => {
   return function (dispatch) {
     axios.post('/api/stripe', token)
       .then(res => {
         return dispatch({ type: FETCH_USER, payload: res.data });
-      })
+      }) 
       .then(() => {
+        onSuccess();
         dispatchTransactions(dispatch);
       });
   }
 }
 
-export const submitSurvey = (values, history) => {
+export const submitSurvey = (values, history, onSuccess) => {
   return function (dispatch) {
     axios.post('/api/surveys', values)
       .then(res => {
         history.push('/home/survey');
         dispatch({ type: FETCH_USER, payload: res.data })
+        onSuccess();
       });
   }
 }

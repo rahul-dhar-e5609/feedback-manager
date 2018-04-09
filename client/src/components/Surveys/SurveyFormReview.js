@@ -9,7 +9,7 @@ import {
   Grid, Row, Col, Table
 } from 'react-bootstrap';
 
-const SurveyReview = ({ onCancel, formValues, submitSurvey, history }) => {
+const SurveyReview = ({ onCancel, formValues, submitSurvey, history, onSuccess }) => {
 
     const reviewFields = _.map(formFields, ({name, label}) => {
         return (
@@ -54,7 +54,7 @@ const SurveyReview = ({ onCancel, formValues, submitSurvey, history }) => {
                                                      * applocation on successfullt sending all the surveys
                                                      */
                                                     () => 
-                                                    submitSurvey(formValues, history)
+                                                    submitSurvey(formValues, history, onSuccess)
                                                 }
                                                 className="btn btn-success btn-fill"
                                             >

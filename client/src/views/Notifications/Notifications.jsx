@@ -4,7 +4,7 @@ import { Grid, Row, Col, Alert } from 'react-bootstrap';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 
 class Notifications extends Component {
-    render() {
+    render() { 
         return (
             <div className="content">
                 <Grid fluid>

@@ -1,13 +1,17 @@
 //SurveyNew shows SurveyForm and SurveyView
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 import SurveyForm from './SurveyForm.js';
 import SurveyFormReview from './SurveyFormReview';
-import {reduxForm} from 'redux-form';
-import { withRouter} from 'react-router-dom';
+import { reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
+//import { connect } from 'react-redux';
+//import compose from 'recompose/compose'
+//import withProps from 'recompose/withProps'
+
 
 class SurveyNew extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             showFormReview: false
@@ -16,29 +20,34 @@ class SurveyNew extends Component {
     //state = {showFormReview: false} //create-react-app
 
     renderContent() {
-        if(this.state.showFormReview){
-            console.log("Survey New Props",this.props);
-            return <SurveyFormReview 
-                        history={this.props.history}
-                        onCancel={
-                            () =>
-                                this.setState({showFormReview: false})
-                        }
-                    />;
+        if (this.state.showFormReview) {
+            console.log("Survey New Props", this.props);
+            return <SurveyFormReview
+                history={this.props.history}
+                onCancel={
+                    () =>
+                        this.setState({ showFormReview: false })
+                }
+                onSuccess={
+                    () =>
+                        this.props.handleNotifications("tr", "The Survey has been created successfully!", 1)
+                }
+            
+            />
         }
-        return <SurveyForm 
-                    onSurveySubmit={
-                        () => 
-                            this.setState({showFormReview: true})
-                    }
-                />;
+        return <SurveyForm
+            onSurveySubmit={
+                () =>
+                    this.setState({ showFormReview: true })
+            }
+        />;
     }
 
-    render(){
+    render() {
         return (
-        <div className="content">
-            {this.renderContent()}
-        </div>
+            <div className="content">
+                {this.renderContent()}
+            </div>
         )
     }
 }
@@ -71,6 +80,22 @@ class SurveyNew extends Component {
  * 
  * SWEET!
  */
-export default reduxForm({
+
+ export default reduxForm({
     form: 'surveyForm'
-})(withRouter(SurveyNew));
+}) (withRouter(SurveyNew));
+
+
+/*
+export default //compose(
+    withProps((ownProps) => {
+        console.log("Survey NEW  [WithProps]", ownProps);
+        return { ...ownProps }
+    }),
+    
+    reduxForm({
+        form: 'surveyForm'
+    })
+    withRouter(SurveyNew)
+//);
+*/

@@ -33,7 +33,7 @@ class Payments extends Component {
                 headerRight={
                   <Row>
                     <Col mdOffset={3}>
-                      <MakePayment />
+                      <MakePayment handleNotifications = {this.props.handleNotifications}/>
                     </Col>
                   </Row>
                 }
