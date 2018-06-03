@@ -29,7 +29,7 @@ export class Card extends Component{
                     + (this.props.ctTableResponsive ? " table-responsive":"")
                     + (this.props.ctTableUpgrade ? " table-upgrade":"")}>
 
-                    {this.props.content || this.props.childern}
+                    {this.props.content}
 
                     <div className="footer">
                         {this.props.legend}

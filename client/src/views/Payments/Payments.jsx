@@ -32,7 +32,8 @@ class Payments extends Component {
                 title="Payment Transactions"
                 headerRight={
                   <Row>
-                    <Col mdOffset={3}>
+                    <Col mdOffset={2}>
+                      <span className="category">{"Avaliable Credits: " + this.props.auth.credits}</span>
                       <MakePayment handleNotifications={this.props.handleNotifications} />
                     </Col>
                   </Row>

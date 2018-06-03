@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-
+import { connect } from 'react-redux';
 import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
@@ -41,16 +41,16 @@ class Dashboard extends Component {
                     <Row>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-server text-warning"></i>}
-                                statsText="Capacity"
-                                statsValue="105GB"
+                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
+                                statsText="Credits"
+                                statsValue={"$"+this.props.auth.credits}
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />
                         </Col>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
+                                bigIcon={<i className="pe-7s-wallet text-warning"></i>}
                                 statsText="Revenue"
                                 statsValue="$1,345"
                                 statsIcon={<i className="fa fa-calendar-o"></i>}
@@ -170,4 +170,9 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+function mapStateToProps({ auth }) {
+    return {
+        auth
+    }
+}
+export default connect(mapStateToProps)(Dashboard);
