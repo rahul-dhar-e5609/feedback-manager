@@ -5,37 +5,59 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField.js';
 import _ from 'lodash';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails.js';
 import formFields from './formFields';
 import Card from 'components/Card/Card.jsx';
 import {
-  Grid, Row, Col, Table
+    Grid, Row, Col, Table
 } from 'react-bootstrap';
+import DOMPurify from 'dompurify';
 
 class SurveyForm extends Component {
-    renderFields (){
-        const fieldStyle = {
-            margin: 'auto',
-            textAlign: 'center'
+
+    mapOverFields() {
+        const fieldContainer = {
+            margin: '2%',
+            /*borderBottom: '1px solid #eee',
+            padding: '2%',
+            textAlign: 'center',*/
+            flex: '1',
+            display: 'inline-block',
+            zoom: '1',
+            minWidth: '45%',
+            overflowWrap: 'auto',
         }
-        return _.map(formFields, ({ label, name }) => {
-            return <div style={fieldStyle}> 
-                <Field 
-                    key={name}
-                    component={SurveyField}
-                    type="text"
-                    label={label}
-                    name={name}
+        const field = {
+        }
+        return _.map(formFields, ({ label, name, type, placeholder }) => {
+            return <div key={name}
+                style={fieldContainer}>
+                <div style={field}>
+                    <Field
+                        key={name}
+                        component={SurveyField}
+                        type={type}
+                        placeholder={placeholder}
+                        label={label}
+                        name={name}
                     />
                 </div>
-        });
+            </div>
+        })
     }
-    render(){   
+
+    renderFields() {
+        return <div style={{}}>
+            {this.mapOverFields()}
+        </div>
+    }
+
+    render() {
         const SurveyButtons = {
             margin: '2%'
         };
-        return(
+        return (
             /**
              * had we added paranthesis after this.props.onSurveySubmit in handleSubmit
              * js interpreter would have called that functionthe second it read that
@@ -46,41 +68,41 @@ class SurveyForm extends Component {
              * to see the values submitted do this
              * {this.props.handleSubmit(values => console.log(values))}
              */
-        <div className="content">
-            <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}
-            >
-                <div >
-                    <Grid fluid>
-                        <Row>
-                            <Col md={12}>
-                                <Card
-                                    title="Add Survey"
-                                    headerRight={
-                                        <Row>
-                                            <Col mdOffset={3}>
-                                                <button className="btn btn-success btn-fill" style={SurveyButtons} type="submit">Next </button>
-                                                <Link className="btn btn-danger btn-fill" style={SurveyButtons} to="/home/survey">Cancel</Link>
-                                            </Col>
-                                        </Row>
-                                    }
-                                    category="You can add a new survey here."
-                                    ctTableFullWidth ctTableResponsive
-                                    content={
-                                        this.renderFields()
-                                    }
-                                />
-                            </Col>
-                        </Row>
-                    </Grid>
-                </div>
-            </form>
-        </div>
+            <div className="content">
+                <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}
+                >
+                    <div >
+                        <Grid fluid>
+                            <Row>
+                                <Col md={12}>
+                                    <Card
+                                        title="Add Survey"
+                                        headerRight={
+                                            <Row>
+                                                <Col mdOffset={3}>
+                                                    <button className="btn btn-success btn-fill" style={SurveyButtons} type="submit">Next </button>
+                                                    <Link className="btn btn-danger btn-fill" style={SurveyButtons} to="/home/survey">Cancel</Link>
+                                                </Col>
+                                            </Row>
+                                        }
+                                        category="You can add a new survey here."
+                                        ctTableFullWidth ctTableResponsive
+                                        content={
+                                            this.renderFields()
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                        </Grid>
+                    </div>
+                </form>
+            </div>
         )
     }
 }
 
 // values => object of all different values coming off of our form
-function validate(values){
+function validate(values) {
     const errors = {};
 
     errors.recipients = validateEmails(values.recipients || '');
@@ -100,14 +122,14 @@ function validate(values){
     * every single time that we run through this loop
     * 
     */
-    _.each(formFields, ({name}) => {
-        if(!values[name]){
+    _.each(formFields, ({ name }) => {
+        if (!values[name]) {
             /**
              * we can add fields specific errors by adding another
              * property to our formFields array and then fetching that prop in this foreach loop
              * using es16 destructuring like, { name, noValidInput}
              * error[name] = noValidInputs 
-             */ 
+             */
             errors[name] = 'You must provide a value!';
         }
     });

@@ -4,14 +4,6 @@ import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 class MakePayment extends Component {
-  /*
-  constructor(props){
-    super(props);
-    this.state = {
-      onSuccess: this.props.handleNotifications("tr", "Payment has been made successfully", 1) 
-    }
-  }
-*/
   render() {
     const PaymentButtons = {
       margin: '2%',
@@ -19,7 +11,6 @@ class MakePayment extends Component {
     };
     //gives actual javascript code
     //debugger;
-    console.log("State [Make Payment]", this.props);
     return (
       <StripeCheckout
         name="Add Credits!"

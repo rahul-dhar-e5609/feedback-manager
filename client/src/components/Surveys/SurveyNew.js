@@ -17,11 +17,8 @@ class SurveyNew extends Component {
             showFormReview: false
         };
     }
-    //state = {showFormReview: false} //create-react-app
-
     renderContent() {
         if (this.state.showFormReview) {
-            console.log("Survey New Props", this.props);
             return <SurveyFormReview
                 history={this.props.history}
                 onCancel={
@@ -32,7 +29,7 @@ class SurveyNew extends Component {
                     () =>
                         this.props.handleNotifications("tr", "The Survey has been created successfully!", 1)
                 }
-            
+
             />
         }
         return <SurveyForm
@@ -81,9 +78,9 @@ class SurveyNew extends Component {
  * SWEET!
  */
 
- export default reduxForm({
+export default reduxForm({
     form: 'surveyForm'
-}) (withRouter(SurveyNew));
+})(withRouter(SurveyNew));
 
 
 /*

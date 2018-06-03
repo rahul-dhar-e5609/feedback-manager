@@ -20,7 +20,7 @@ class Payments extends Component {
     const th = {
       'Email': '',
       'Date': '',
-      'Credits':'',
+      'Credits': '',
       'Amount': ''
     }
     return (
@@ -33,7 +33,7 @@ class Payments extends Component {
                 headerRight={
                   <Row>
                     <Col mdOffset={3}>
-                      <MakePayment handleNotifications = {this.props.handleNotifications}/>
+                      <MakePayment handleNotifications={this.props.handleNotifications} />
                     </Col>
                   </Row>
                 }

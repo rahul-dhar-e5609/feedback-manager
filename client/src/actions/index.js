@@ -53,7 +53,7 @@ export const handleToken = (token, onSuccess) => {
     axios.post('/api/stripe', token)
       .then(res => {
         return dispatch({ type: FETCH_USER, payload: res.data });
-      }) 
+      })
       .then(() => {
         onSuccess();
         dispatchTransactions(dispatch);
