@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import MakePayment from '../../components/Payments/Payments.js';
 import { connect } from 'react-redux';
 import Card from 'components/Card/Card.jsx';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import {
   Grid, Row, Col, Table
 } from 'react-bootstrap';
@@ -62,7 +62,7 @@ class Payments extends Component {
                               return (
                                 <tr key={key}>{
                                   Object.keys(prop).map((key, index) => {
-                                    if (key == 'creditedOn') {
+                                    if (key === 'creditedOn') {
 
                                       return (
                                         <td key={index}>

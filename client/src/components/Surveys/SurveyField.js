@@ -1,7 +1,9 @@
 //SurveyField contains login to render a single label and text input
-import React, { Component } from 'react';
+import React//, { Component } 
+from 'react';
 import {
-    FormGroup, ControlLabel, FormControl
+    //FormGroup, 
+    ControlLabel, FormControl
 } from 'react-bootstrap';
 import {FormInputs} from 'components/FormInputs/FormInputs.jsx';
 

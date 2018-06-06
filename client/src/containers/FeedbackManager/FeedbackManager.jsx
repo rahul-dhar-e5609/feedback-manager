@@ -64,7 +64,7 @@ class FeedbackManager extends Component {
     //props
     this.props.fetchUser();
     this.setState({ _notificationSystem: this.refs.notificationSystem });
-    var _notificationSystem = this.refs.notificationSystem;
+    //var _notificationSystem = this.refs.notificationSystem;
   }
 
   render() {

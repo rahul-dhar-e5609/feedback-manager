@@ -6,8 +6,8 @@ import {
   Grid, Row, Col, Table
 } from 'react-bootstrap';
 import { fetchSurveys } from '../../actions/index.js';
-import SurveyList from '../../components/Surveys/SurveyList.js';
-import Button from 'elements/CustomButton/CustomButton.jsx';
+//import SurveyList from '../../components/Surveys/SurveyList.js';
+//import Button from 'elements/CustomButton/CustomButton.jsx';
 
 class Survey extends Component {
 
@@ -62,7 +62,7 @@ class Survey extends Component {
                                                           return (
                                                               <tr key={key}>{
                                                                   Object.keys(prop).map((key, index) => {
-                                                                      if(key == 'dateSent'){
+                                                                      if(key === 'dateSent'){
                                                                         
                                                                         return (
                                                                           <td key={index}>

@@ -10,7 +10,7 @@ import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import Sidebar from 'components/Sidebar/Sidebar';
 
-import {style} from "variables/Variables.jsx";
+//import {style} from "variables/Variables.jsx";
 
 import appRoutes from 'routes/app.jsx';
 
@@ -35,13 +35,13 @@ class App extends Component {
         //console.log("Props [App]", this.props);
         const auth = this.is_authenticated();
         if( auth != null){
-            if(auth == false){
+            if(auth === false){
                 return (
                 <Redirect to={{
                     pathname: '/login'
                 }}/>
                 );
-            }else if (auth == true){
+            }else if (auth === true){
                 return (
                     <div className="wrapper">
                         <Sidebar {...this.props} />

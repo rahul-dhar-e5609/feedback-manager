@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
 import imagine from 'assets/img/sidebar-5.jpg';
-import logo from 'assets/img/logo.png';
+//import logo from 'assets/img/logo.png';
 
 import appRoutes from 'routes/app.jsx';
 
@@ -19,7 +19,7 @@ class Sidebar extends Component{
         return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : '';
     }
     updateDimensions(){
-        this.setState({width:window.innerWidth});
+    //    this.setState({width:window.innerWidth});
     }
     componentDidMount() {
         this.updateDimensions();
@@ -34,7 +34,7 @@ class Sidebar extends Component{
                 <div className="sidebar-background" style={sidebarBackground}></div>
                     <div className="logo">
                         
-                        <a href="#" className="simple-text logo-normal">
+                        <a href="" className="simple-text logo-normal">
                             <h5>Feedback Manager</h5>
                         </a>
                     </div>

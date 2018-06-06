@@ -10,9 +10,9 @@ import validateEmails from '../../utils/validateEmails.js';
 import formFields from './formFields';
 import Card from 'components/Card/Card.jsx';
 import {
-    Grid, Row, Col, Table
+    Grid, Row, Col//, Table
 } from 'react-bootstrap';
-import DOMPurify from 'dompurify';
+//import DOMPurify from 'dompurify';
 
 class SurveyForm extends Component {
 

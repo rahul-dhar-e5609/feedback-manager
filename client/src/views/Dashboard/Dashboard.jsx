@@ -7,8 +7,8 @@ import {Card} from 'components/Card/Card.jsx';
 import {StatsCard} from 'components/StatsCard/StatsCard.jsx';
 import {Tasks} from 'components/Tasks/Tasks.jsx';
 import {
-    dataPie,
-    legendPie,
+    // dataPie,
+    // legendPie,
     dataSales,
     optionsSales,
     responsiveSales,
@@ -50,19 +50,19 @@ class Dashboard extends Component {
                         </Col>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-wallet text-warning"></i>}
-                                statsText="Revenue"
-                                statsValue="$1,345"
-                                statsIcon={<i className="fa fa-calendar-o"></i>}
-                                statsIconText="Last day"
+                                bigIcon={<i className="pe-7s-speaker text-warning"></i>}
+                                statsText="Surveys"
+                                statsValue={this.props.surveys.length}
+                                statsIcon={<i className="fa fa-refresh"></i>}
+                                statsIconText="Updated now"
                             />
                         </Col>
                         <Col lg={3} sm={6}>
                             <StatsCard
-                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Errors"
+                                bigIcon={<i className="pe-7s-cash text-info"></i>}
+                                statsText="Last Payment"
                                 statsValue="23"
-                                statsIcon={<i className="fa fa-clock-o"></i>}
+                                statsIcon={<i className="Updated now"></i>}
                                 statsIconText="In the last hour"
                             />
                         </Col>
@@ -76,52 +76,7 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md={8}>
-                            <Card
-                                statsIcon="fa fa-history"
-                                id="chartHours"
-                                title="Users Behavior"
-                                category="24 Hours performance"
-                                stats="Updated 3 minutes ago"
-                                content={
-                                    <div className="ct-chart">
-                                        <ChartistGraph
-                                            data={dataSales}
-                                            type="Line"
-                                            options={optionsSales}
-                                            responsiveOptions={responsiveSales}
-                                        />
-                                    </div>
-                                    }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendSales)}
-                                    </div>
-                                }
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Card
-                                statsIcon="fa fa-clock-o"
-                                title="Email Statistics"
-                                category="Last Campaign Performance"
-                                stats="Campaign sent 2 days ago"
-                                content={
-                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ChartistGraph data={dataPie} type="Pie"/>
-                                    </div>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendPie)}
-                                    </div>
-                                }
-                            />
-                        </Col>
-                    </Row>
-
-                    <Row>
+                    <Row style={{display:'none'}}>
                         <Col md={6}>
                             <Card
                                 id="chartActivity"
@@ -163,6 +118,32 @@ class Dashboard extends Component {
                             />
                         </Col>
                     </Row>
+                    <Row style={{display:'none'}}>
+                        <Col md={12}>
+                            <Card
+                                statsIcon="fa fa-history"
+                                id="chartHours"
+                                title="Users Behavior"
+                                category="24 Hours performance"
+                                stats="Updated 3 minutes ago"
+                                content={
+                                    <div className="ct-chart">
+                                        <ChartistGraph
+                                            data={dataSales}
+                                            type="Line"
+                                            options={optionsSales}
+                                            responsiveOptions={responsiveSales}
+                                        />
+                                    </div>
+                                    }
+                                legend={
+                                    <div className="legend">
+                                        {this.createLegend(legendSales)}
+                                    </div>
+                                }
+                            />
+                        </Col>
+                    </Row>
 
                 </Grid>
             </div>
@@ -170,9 +151,10 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth, surveys }) {
     return {
-        auth
+        auth,
+        surveys
     }
 }
 export default connect(mapStateToProps)(Dashboard);

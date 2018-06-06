@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 export class Card extends Component{
     render(){
-        var inlineBlock = {
-            display: 'inline-block'
-        };
         return (
             <div className={"card"+(this.props.plain ? " card-plain":"")}>
                 <div className={"header"
@@ -17,7 +14,7 @@ export class Card extends Component{
                                 <p className="category">{this.props.category}</p>
                             </Col>
                             <Col md={6}>
-                                {this.props.headerRight}
+                                {this.getRightHeader()}
                             </Col>
                         </Row>
                     </Grid>
@@ -29,7 +26,7 @@ export class Card extends Component{
                     + (this.props.ctTableResponsive ? " table-responsive":"")
                     + (this.props.ctTableUpgrade ? " table-upgrade":"")}>
 
-                    {this.props.content}
+                    {this.getContents()}
 
                     <div className="footer">
                         {this.props.legend}
@@ -41,6 +38,13 @@ export class Card extends Component{
                 </div>
             </div>
         );
+    }
+
+    getRightHeader(){
+        return this.props.headerRight
+    }
+    getContents(){
+        return this.props.content;
     }
 }
 

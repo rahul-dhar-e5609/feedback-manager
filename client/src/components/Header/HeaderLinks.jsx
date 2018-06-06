@@ -11,7 +11,7 @@ class HeaderLinks extends Component {
             <div>
                 <Nav pullRight bsStyle="tabs" onSelect={k => this.handleSelect(k)}>
                     <NavItem eventKey={1} href="#">
-                        <img style={{ width: '35px', height: '35px', borderRadius: '50px' }} src={this.props.auth.avatar} />
+                        <img alt="avatar" style={{ width: '35px', height: '35px', borderRadius: '50px' }} src={this.props.auth.avatar} />
                     </NavItem>
                     <NavDropdown eventKey={2} title={this.props.auth.firstName + " " + this.props.auth.lastName} id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1} >

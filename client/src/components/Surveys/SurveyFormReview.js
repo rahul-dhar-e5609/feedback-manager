@@ -7,7 +7,7 @@ import * as actions from '../../actions/index.js';
 import Card from 'components/Card/Card.jsx';
 import Questionnaire from 'components/Card/Questionnaire.jsx';
 import {
-    Grid, Row, Col, Table
+    Grid, Row, Col//, Table
 } from 'react-bootstrap';
 
 //const SurveyReview = ({ onCancel, formValues, submitSurvey, history, onSuccess }) => {}

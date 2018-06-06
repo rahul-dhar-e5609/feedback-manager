@@ -5,7 +5,6 @@ export default function(state = null, action){
       //an empty string is interpreted to be false
       // so "" || false returns false
       return action.payload || false;
-      break;
     default:
       return state;
   }

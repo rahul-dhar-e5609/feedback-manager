@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Grid, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import Button from 'elements/CustomButton/CustomButton.jsx';
 import { Card } from 'components/Card/Card.jsx';
 import logo from 'assets/img/logo.png';
@@ -21,7 +21,7 @@ class Login extends Component {
         <Grid>
           <Row style={loginInnerCSS}>
             <Col md={6}>
-              <img style={{ width: '50%', display: 'block', margin: '0 auto' }} src={logo} />
+              <img alt="logo" style={{ width: '50%', display: 'block', margin: '0 auto' }} src={logo} />
               <Card
                 //customStyle={{minWidth: '50%'}}
                 title="Login"
@@ -79,7 +79,7 @@ class Login extends Component {
                 content={
                   <div>
                     <div>
-                      <img style={{ width: '50%', display: 'block', margin: '0 auto' }} src={logo} />
+                      <img alt="logo" style={{ width: '50%', display: 'block', margin: '0 auto' }} src={logo} />
                     </div>
                     <h2 style={{ textAlign: 'center' }}>Sign up</h2>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
