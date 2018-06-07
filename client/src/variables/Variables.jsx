@@ -478,11 +478,11 @@ const iconsArray = [
 //
 // Data for Pie Chart
 var dataPie = {
-    labels: ['40%','20%','40%'],
-    series: [40, 20, 40]
+    labels: ['33%','33%','33%'],
+    series: [33, 33, 33]
 };
 var legendPie = {
-    names: ["Open","Bounce","Unsubscribe"],
+    names: ["Option 1","Option 2","Option 3"],
     types: ["info","danger","warning"]
 };
 

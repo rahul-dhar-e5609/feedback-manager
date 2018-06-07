@@ -5,7 +5,7 @@ import formFields from './formFields';
 import _ from 'lodash';
 import * as actions from '../../actions/index.js';
 import Card from 'components/Card/Card.jsx';
-import Questionnaire from 'components/Card/Questionnaire.jsx';
+import Questionnaire from '../Questionnaire/Questionnaire.jsx';
 import {
     Grid, Row, Col//, Table
 } from 'react-bootstrap';

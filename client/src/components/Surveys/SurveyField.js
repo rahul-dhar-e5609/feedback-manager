@@ -14,7 +14,8 @@ import {FormInputs} from 'components/FormInputs/FormInputs.jsx';
  * label => label that we sent down in parent comp
  * meta => meta values eg. error from reduxForm
  */
-export default ({input, label, type, placeholder, meta: {error, touched}}) => {
+//export default (export default ({input, fieldvalue, label, type, placeholder, meta: {error, touched}}) => {) => {
+export default (props) => {
     //console.log("Meta", meta);
     //touched prop of meta -> clicked into it and clicked out
     /**
@@ -28,10 +29,11 @@ export default ({input, label, type, placeholder, meta: {error, touched}}) => {
      * <label>{label}</label>
      * <input  {...input} style={{marginLeft:'5%', marginBottom: '5px', height: '30px', width: '250px'}}/>     
      */
-    
+    console.log(props);
+    const {input, fieldvalue, label, type, placeholder, meta: {error, touched}} = props;
     return (
         <div>
-            {getFieldHTML(type, label, placeholder, input)}
+            {getFieldHTML(type, fieldvalue, label, placeholder, input)}
             <div style={{ color: 'red'}}>
                 {touched && error}&nbsp;
             </div>
@@ -40,8 +42,7 @@ export default ({input, label, type, placeholder, meta: {error, touched}}) => {
     )
 }
 
-function getFieldHTML(type, label, placeholder, input){
-    //console.log("input ", input);
+function getFieldHTML(type, fieldvalue, label, placeholder, input){
     if(type === "textarea"){
         return (
             <div>
@@ -50,19 +51,16 @@ function getFieldHTML(type, label, placeholder, input){
             </div>
         );
     }
-
-    return (
-        <FormInputs
-                ncols = {["col-md-12"]}
-                proprieties = {[
-                    {
-                        label,
-                        type,
-                        bsClass : "form-control",
-                        placeholder,
-                        ...input
-                    }
-                ]}
+    console.log("value: ", fieldvalue);
+    return (    
+        <div>
+            <ControlLabel>{label}</ControlLabel>
+            <FormControl
+                type={type}
+                value={fieldvalue}
+                placeholder={placeholder}
+                {...input}
             />
+        </div>
     );
 }
