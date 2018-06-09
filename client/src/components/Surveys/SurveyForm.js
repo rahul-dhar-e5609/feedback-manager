@@ -24,36 +24,63 @@ class SurveyForm extends Component {
             questions: []
         };
     }
-    mapOverFields() {
-        const fieldContainer = {
-            margin: '2%',
-            flex: '1',
-            display: 'inline-block',
-            zoom: '1',
-            minWidth: '45%',
-            overflowWrap: 'auto',
-        }
-        return _.map(formFields, ({ label, name, type, placeholder }) => {
-            return <div key={name}
-                style={fieldContainer}>
-                <div>
-                    <Field
-                        key={name}
-                        component={SurveyField}
-                        type={type}
-                        placeholder={placeholder}
-                        label={label}
-                        name={name}
-                    />
-                </div>
-            </div>
-        })
-    }
-
+    
     renderFields() {
-        return <div style={{}}>
-            {this.mapOverFields()}
-        </div>
+        return (
+            <div style={{margin:'2%'}}>
+                <Row>
+                    <Col md={6}>
+                    <Field
+                        component={SurveyField}
+                        type='text'
+                        placeholder='Survey Title'
+                        label='Survey Title'
+                        name='title'
+                    />
+                    </Col>
+                    <Col md={6}>
+                    <Field
+                        component={SurveyField}
+                        type='text'
+                        placeholder='Survey Footer'
+                        label='Survey Footer'
+                        name='footer'
+                    />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={12}>
+                    <Field
+                        component={SurveyField}
+                        type='text'
+                        placeholder='Subject Line'
+                        label='Subject Line'
+                        name='subject'
+                    />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6}>
+                    <Field
+                        component={SurveyField}
+                        type='textarea'
+                        placeholder='Email Body'
+                        label='Email Body'
+                        name='body'
+                    />
+                    </Col>
+                    <Col md={6}>
+                    <Field
+                        component={SurveyField}
+                        type='textarea'
+                        placeholder='Recipient List'
+                        label='Recipient List'
+                        name='recipients'
+                    />
+                    </Col>
+                </Row>
+            </div>
+        );
     }
 
     addQuestion() {
