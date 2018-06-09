@@ -10,16 +10,15 @@ export class Question extends Component {
     }
 
     render() {
-        console.log("Question Props", this.props.question);
+        console.log("[Question] Props", this.props);
         return (
             <div className="question" style={{ margin: '0% 2%' }}>
                 <Field
-                //    key="test"
                     component={SurveyField}
                     type="text"
                     placeholder="Add Question"
                     label="Add Question"
-                    name="add-question"
+                    name={"q-"+this.props.index}
                     fieldvalue={this.props.question}
                 />
             </div>

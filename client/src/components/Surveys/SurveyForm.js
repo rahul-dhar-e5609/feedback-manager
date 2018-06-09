@@ -12,28 +12,31 @@ import Card from 'components/Card/Card.jsx';
 import {
     Grid, Row, Col//, Table
 } from 'react-bootstrap';
+import Questionnaire from '../Questionnaire/Questionnaire.jsx';
+
 //import DOMPurify from 'dompurify';
 
 class SurveyForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            questions: []
+        };
+    }
     mapOverFields() {
         const fieldContainer = {
             margin: '2%',
-            /*borderBottom: '1px solid #eee',
-            padding: '2%',
-            textAlign: 'center',*/
             flex: '1',
             display: 'inline-block',
             zoom: '1',
             minWidth: '45%',
             overflowWrap: 'auto',
         }
-        const field = {
-        }
         return _.map(formFields, ({ label, name, type, placeholder }) => {
             return <div key={name}
                 style={fieldContainer}>
-                <div style={field}>
+                <div>
                     <Field
                         key={name}
                         component={SurveyField}
@@ -51,6 +54,30 @@ class SurveyForm extends Component {
         return <div style={{}}>
             {this.mapOverFields()}
         </div>
+    }
+
+    addQuestion() {
+        const _json = {
+            text: '',
+            options: [
+                {
+                    text: '',
+                }
+            ]
+        };
+        let _q = this.state.questions;
+        _q.push(_json);
+        this.setState({
+            questions: _q
+        });
+    }
+
+    addOption(qIndex) {
+        let _q = this.state.questions;
+        _q[qIndex].options.push({ text: '' });
+        this.setState({
+            questions: _q
+        });
     }
 
     render() {
@@ -93,6 +120,18 @@ class SurveyForm extends Component {
                                     />
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col md={12}>
+                                    <Questionnaire
+                                        title="Questions"
+                                        category="You can add questions for the survey here."
+                                        ctTableFullWidth ctTableResponsive
+                                        questions={this.state.questions}
+                                        addQuestion={() => this.addQuestion()}
+                                        addOption={(qIndex) => this.addOption(qIndex)}
+                                    />
+                                </Col>
+                            </Row>
                         </Grid>
                     </div>
                 </form>
@@ -104,6 +143,8 @@ class SurveyForm extends Component {
 // values => object of all different values coming off of our form
 function validate(values) {
     const errors = {};
+
+    console.log("Values: ", values);
 
     errors.recipients = validateEmails(values.recipients || '');
 

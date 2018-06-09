@@ -10,16 +10,17 @@ export class Option extends Component {
     }
 
     render() {
+        console.log("[OPTIONS] Props:", this.props.option);
         return (
             <div className="options" style={{ minWidth: '45%', display: 'block', margin: '1% 2%' }}>
                 <Field
-                    key={this.props.key}
+                    key={this.props.index}
                     component={SurveyField}
                     type="text"
                     placeholder="Option"
                     label="Option"
-                    name="add-option"
-                    fieldvalue={this.props.optionValue}
+                    name={"q"+this.props.qindex+"_"+"op-"+this.props.index}
+                    fieldvalue={this.props.option.text}
                 />
             </div>
         );

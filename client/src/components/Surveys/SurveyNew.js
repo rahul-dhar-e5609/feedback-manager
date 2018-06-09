@@ -29,7 +29,6 @@ class SurveyNew extends Component {
                     () =>
                         this.props.handleNotifications("tr", "The Survey has been created successfully!", 1)
                 }
-
             />
         }
         return <SurveyForm

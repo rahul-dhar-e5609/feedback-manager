@@ -5,7 +5,6 @@ import formFields from './formFields';
 import _ from 'lodash';
 import * as actions from '../../actions/index.js';
 import Card from 'components/Card/Card.jsx';
-import Questionnaire from '../Questionnaire/Questionnaire.jsx';
 import {
     Grid, Row, Col//, Table
 } from 'react-bootstrap';
@@ -29,7 +28,7 @@ class SurveyReview extends Component {
             minWidth: '45%',
             overflowWrap: 'auto',
         }
-
+        console.log("[Submit Review] Props", this.props);
         return (
 
             <div className="content">
@@ -71,7 +70,7 @@ class SurveyReview extends Component {
                                             </button>
                                     </div>
                                 }
-                                category="You can add a new survey here."
+                                category="You can review your survey here."
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <div style={fieldStyle}>
@@ -80,15 +79,6 @@ class SurveyReview extends Component {
                                         <br />
                                     </div>
                                 }
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>
-                            <Questionnaire
-                                title="Questions"
-                                category="You can add questions for the survey here."
-                                ctTableFullWidth ctTableResponsive
                             />
                         </Col>
                     </Row>

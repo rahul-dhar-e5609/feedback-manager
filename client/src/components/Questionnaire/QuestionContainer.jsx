@@ -1,24 +1,16 @@
-import React, { Component } 
-from 'react';
+import React, { Component }
+    from 'react';
 //import Card from '../Card/Card.jsx';
-import { 
+import {
     Grid, Row, Col//, Table 
 } from 'react-bootstrap';
-import _ from 'lodash';
-import { reduxForm, Field } from 'redux-form';
-import SurveyField from '../Surveys/SurveyField.js';
-import ChartistGraph from 'react-chartist';
-import {dataPie, legendPie} from 'variables/Variables.jsx';
 import Question from './Question.jsx';
 import Option from './Option.jsx';
 
 export class QuestionContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            question: 'Where did you hear about us?',
-            options:[{'value':'Newspapers'},{'value':'Friends'},{'value':'Facebook'}]
-        };
+        this.state = {};
     }
     createLegend(json) {
         var legend = [];
@@ -34,34 +26,42 @@ export class QuestionContainer extends Component {
         }
         return legend;
     }
-    renderOptions(){
-        return _.map(this.state.options, ({ value }) => {
-            return <Option key={value} optionValue={value}/>
-        })
+    renderOptions(qindex, options) {
+        console.log("options array", options);
+        return options.map(( option, index ) => {
+
+            return <Option qindex={qindex} index={index} option={option}/>
+        });
     }
-    render() {
-        console.log("State", this.state);
-        return (
-            <div>
-                <Question question={this.state.question}/>
+    renderQuestions() {
+        return this.props.questions.map((question, index) => {
+            return (<div key={index}>
+                <Question index={index} question={question.text} />
                 <Grid>
                     <Row>
                         <Col md={6}>
                             <div>
-                                {this.renderOptions()}
-                                <div style={{marginLeft:'2%', backgroundColor:'#0F0', borderRadius:'50%', width:'40px', height:'40px', color:'white', textAlign:'center', paddingTop:'2%', cursor:'pointer'}}>+</div>
+                                {this.renderOptions(index, question.options)}
+                                <button className="btn btn-info" onClick={() => this.props.addOption(index)} type="button" >Add Option</button>
                             </div>
                         </Col>
-                        <Col md={4}>
+                        {/* <Col md={4}>
                             <div style={{ display: 'inline-block, flex:1' }}>
                                 <ChartistGraph data={dataPie} type="Pie" />
                                 <div className="legend">
                                     {this.createLegend(legendPie)}
                                 </div>
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Grid>
+            </div>);
+        });
+    }
+    render() {
+        return (
+            <div>
+                {this.renderQuestions()}
             </div>
         );
     }
