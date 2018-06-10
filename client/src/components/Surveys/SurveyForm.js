@@ -13,7 +13,7 @@ import {
     Grid, Row, Col//, Table
 } from 'react-bootstrap';
 import Questionnaire from '../Questionnaire/Questionnaire.jsx';
-
+import SurveyInputs from '../FormInputs/SurveyInputs.jsx';
 //import DOMPurify from 'dompurify';
 
 class SurveyForm extends Component {
@@ -24,61 +24,56 @@ class SurveyForm extends Component {
             questions: []
         };
     }
-    
+
     renderFields() {
         return (
-            <div style={{margin:'2%'}}>
-                <Row>
-                    <Col md={6}>
-                    <Field
-                        component={SurveyField}
-                        type='text'
-                        placeholder='Survey Title'
-                        label='Survey Title'
-                        name='title'
-                    />
-                    </Col>
-                    <Col md={6}>
-                    <Field
-                        component={SurveyField}
-                        type='text'
-                        placeholder='Survey Footer'
-                        label='Survey Footer'
-                        name='footer'
-                    />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12}>
-                    <Field
-                        component={SurveyField}
-                        type='text'
-                        placeholder='Subject Line'
-                        label='Subject Line'
-                        name='subject'
-                    />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={6}>
-                    <Field
-                        component={SurveyField}
-                        type='textarea'
-                        placeholder='Email Body'
-                        label='Email Body'
-                        name='body'
-                    />
-                    </Col>
-                    <Col md={6}>
-                    <Field
-                        component={SurveyField}
-                        type='textarea'
-                        placeholder='Recipient List'
-                        label='Recipient List'
-                        name='recipients'
-                    />
-                    </Col>
-                </Row>
+            <div style={{ margin: '2%' }}>
+
+                <SurveyInputs
+                    ncols={['col-md-6', 'col-md-6']}
+                    proprieties={[{
+                        type: 'text',
+                        placeholder: 'Survey Title',
+                        label: 'Survey Title',
+                        name: 'title',
+                    },
+                    {
+                        type: 'text',
+                        placeholder: 'Survey Footer',
+                        label: 'Survey Footer',
+                        name: 'footer',
+                    },
+                    ]
+                    }
+                />
+                <SurveyInputs
+                    ncols={['col-md-12']}
+                    proprieties={[{
+                        type: 'text',
+                        placeholder: 'Subject Line',
+                        label: 'Subject Line',
+                        name: 'subject',
+                    }
+                    ]
+                    }
+                />
+                <SurveyInputs
+                    ncols={['col-md-6', 'col-md-6']}
+                    proprieties={[{
+                        type: 'textarea',
+                        placeholder: 'Email Body',
+                        label: 'Email Body',
+                        name: 'body',
+                    },
+                    {
+                        type: 'textarea',
+                        placeholder: 'Recipient List',
+                        label: 'Recipient List',
+                        name: 'recipients',
+                    },
+                    ]
+                    }
+                />
             </div>
         );
     }

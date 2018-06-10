@@ -18,7 +18,7 @@ export class Question extends Component {
                     type="text"
                     placeholder="Add Question"
                     label="Add Question"
-                    name={"q-"+this.props.index}
+                    name={"question-"+this.props.index}
                     fieldvalue={this.props.question}
                 />
             </div>

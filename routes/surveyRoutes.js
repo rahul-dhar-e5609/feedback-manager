@@ -21,7 +21,29 @@ module.exports = app => {
   });
 
   app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
-    const { title, subject, body, recipients } = req.body;
+    const { title, subject, body, recipients, footer } = req.body;
+    const entries = Object.entries(req.body)
+    let _q = [];
+    console.log("Keys", entries);
+    entries
+      .map(entry => {
+        // const qReg = /^question-%d/
+        const qReg = /^(question)-(\d*)/;
+        const opReg = /^(q)(\d*)_(op)-(\d*)/;
+        const key = entry[0];
+        const value = entry[1];
+        if (qReg.test(key)) {
+          const k = key.match(/(\d*)$/gm).filter(key => key.trim());
+          _q[k[0]] = {'q':value};
+        }else if(opReg.test(key)){
+          const k = key.match(/(\d)*/gm).filter(key => key.trim());
+          let q = _q[k[0]];
+          q.op = q.op || {};
+          q.op[k[1]] = value;
+          _q[k[0]] = q;
+        }
+      });
+    console.log("Questions Array: ", _q);
     try {
       /**
        * TODO:
