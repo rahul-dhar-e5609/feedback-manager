@@ -33,7 +33,7 @@ export class FMSurvey {
             return reject;
         }
         return await Survey.find({ _user: userID })
-            .select({ 
+            .select({
                 recipients: false,
                 body: false,
                 yes: false,
@@ -45,18 +45,20 @@ export class FMSurvey {
             }); // not including the recipients sub-document
     }
 
-    static async createSurvey(title: string, subject: string, body: string, recipients: string, userID: string, draft: boolean = false): Promise<any> {
-        const survey = new Survey({                                               
+    static async createSurvey(title: string, subject: string, body: string, recipients: string, questions: any[], userID: string, draft: boolean = false): Promise<any> {
+        console.log("Questions array: ", questions);
+        const survey = new Survey({
             title,
             subject,
             body,
+            questions,
             recipients: FMSurvey.parseRecipientStringToArray(recipients),
             _user: userID,
             dateSent: Date.now()
         });
-        if(!draft){
+        if (!draft) {
             const mailer = new Mailer(survey, surveyTemplate(survey));
-            await mailer.send();    
+            await mailer.send();
         }
         return await survey.save();
     }

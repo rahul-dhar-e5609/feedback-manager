@@ -90,17 +90,19 @@ var FMSurvey = /** @class */ (function () {
             });
         });
     };
-    FMSurvey.createSurvey = function (title, subject, body, recipients, userID, draft) {
+    FMSurvey.createSurvey = function (title, subject, body, recipients, questions, userID, draft) {
         if (draft === void 0) { draft = false; }
         return __awaiter(this, void 0, void 0, function () {
             var survey, mailer;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        console.log("Questions array: ", questions);
                         survey = new Survey({
                             title: title,
                             subject: subject,
                             body: body,
+                            questions: questions,
                             recipients: FMSurvey.parseRecipientStringToArray(recipients),
                             _user: userID,
                             dateSent: Date.now()

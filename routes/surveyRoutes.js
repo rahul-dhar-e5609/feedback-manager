@@ -34,16 +34,16 @@ module.exports = app => {
         const value = entry[1];
         if (qReg.test(key)) {
           const k = key.match(/(\d*)$/gm).filter(key => key.trim());
-          _q[k[0]] = {'q':value};
+          _q[k[0]] = {'question':value};
         }else if(opReg.test(key)){
           const k = key.match(/(\d)*/gm).filter(key => key.trim());
           let q = _q[k[0]];
-          q.op = q.op || {};
-          q.op[k[1]] = value;
+          q.options = q.options || [];
+          console.log("Value:",value);
+          q.options[k[1]] = {'option':value};
           _q[k[0]] = q;
         }
       });
-    console.log("Questions Array: ", _q);
     try {
       /**
        * TODO:
@@ -51,7 +51,7 @@ module.exports = app => {
        * of credits that were utilised in sending the 
        * survey.
        */
-      const surveys = await SurveyConfig.createSurvey(title, subject, body, recipients, req.user.id);
+      const surveys = await SurveyConfig.createSurvey(title, subject, body, recipients, _q, req.user.id);
       req.user.credits -= 1 * SurveyConfig.parseRecipientStringToArray(recipients).length;
       console.log("Deducted to: ", req.user.credits);
       const user = await req.user.save();
