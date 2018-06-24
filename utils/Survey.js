@@ -78,6 +78,7 @@ var FMSurvey = /** @class */ (function () {
                                 .select({
                                 recipients: false,
                                 body: false,
+                                questions: false,
                                 yes: false,
                                 no: false,
                                 _user: false,
