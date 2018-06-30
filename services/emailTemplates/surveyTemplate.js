@@ -6,17 +6,14 @@ module.exports = (survey) => {
         <style>
         .container{
           text-align:center;
+          margin:5%;
         }
         .link{
-          padding:10% 2% 1% 2%;
+          padding:1%;
           text-decoration:none;
           color:white;
           background-color:#4CAF50!important;
           border:1px solid #0f0
-        }
-        .link:hover{
-          color:#4CAF50;
-          background-color:white!important;
         }
         </style>
       </head>
